@@ -4,9 +4,9 @@ import Logo from '../assets/logo.png'
 
 const Navbar = () => {
     const links = <>
-        <li><NavLink to={'/'}>Home</NavLink></li>
-        <li><NavLink to={'/meals'}>Meals</NavLink></li>
-        <li><NavLink to={'/dashboard'}>Dashboard</NavLink></li>
+        <li><NavLink className='btn1' to={'/'}>Home</NavLink></li>
+        <li><NavLink className='btn1' to={'/meals'}>Meals</NavLink></li>
+        <li><NavLink className='btn1' to={'/dashboard'}>Dashboard</NavLink></li>
     </>
     return (
         <div className='bg-base-100'>
@@ -32,7 +32,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <Link className="button2">Login</Link>
             </div>
         </div>
         </div>
