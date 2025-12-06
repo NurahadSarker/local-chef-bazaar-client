@@ -5,7 +5,7 @@ import { Outlet } from 'react-router';
 
 const MainLayout = () => {
     return (
-        <div className='flex flex-col min-h-screen poppins'>
+        <div className='flex flex-col min-h-screen poppins bg-base-200'>
             <Navbar></Navbar>
             <div className='flex-1'>
                 <Outlet></Outlet>
