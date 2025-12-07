@@ -10,8 +10,8 @@ const Card = () => {
 
                 <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
                     <div>
-                        <div className='flex items-center justify-center bg-gray-400 w-full mb-2'>
-                            <img src={Image01} alt="" />
+                        <div className='flex items-center justify-center bg-gray-400 w-full mb-2 overflow-hidden'>
+                            <img className='object-cover hover:scale-110 transition-transform duration-500' src={Image01} alt="" />
                         </div>
                         <h1 className='text-xl font-semibold'>Chicken Biriyani</h1>
                         <h2 className='text-gray-400 font-medium'>Chef: Robi-C002</h2>
@@ -21,87 +21,7 @@ const Card = () => {
                         </div>
                         <h2 className='text-gray-400 font-medium'>Location</h2>
                     </div>
-                    <Link to={'/meals-details'} className='w-full items-center button2'>See Details</Link>
-                </div>
-
-                <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
-                    <div>
-                        <div className='flex items-center justify-center bg-gray-400 w-full'>
-                            <img src={Image01} alt="" />
-                        </div>
-                        <h1>Chicken Biriyani</h1>
-                        <h2>Chef: Robi-C002</h2>
-                        <div className='flex items-center justify-between'>
-                            <h1>Rating</h1>
-                            <h1>$ 10.00</h1>
-                        </div>
-                        <h2>Location</h2>
-                    </div>
-                    <button className='w-full items-center button2'>See Details</button>
-                </div>
-
-                <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
-                    <div>
-                        <div className='flex items-center justify-center bg-gray-400 w-full'>
-                            <img src={Image01} alt="" />
-                        </div>
-                        <h1>Chicken Biriyani</h1>
-                        <h2>Chef: Robi-C002</h2>
-                        <div className='flex items-center justify-between'>
-                            <h1>Rating</h1>
-                            <h1>$ 10.00</h1>
-                        </div>
-                        <h2>Location</h2>
-                    </div>
-                    <button className='w-full items-center button2'>See Details</button>
-                </div>
-
-                <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
-                    <div>
-                        <div className='flex items-center justify-center bg-gray-400 w-full'>
-                            <img src={Image01} alt="" />
-                        </div>
-                        <h1>Chicken Biriyani</h1>
-                        <h2>Chef: Robi-C002</h2>
-                        <div className='flex items-center justify-between'>
-                            <h1>Rating</h1>
-                            <h1>$ 10.00</h1>
-                        </div>
-                        <h2>Location</h2>
-                    </div>
-                    <button className='w-full items-center button2'>See Details</button>
-                </div>
-
-                <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
-                    <div>
-                        <div className='flex items-center justify-center bg-gray-400 w-full'>
-                            <img src={Image01} alt="" />
-                        </div>
-                        <h1>Chicken Biriyani</h1>
-                        <h2>Chef: Robi-C002</h2>
-                        <div className='flex items-center justify-between'>
-                            <h1>Rating</h1>
-                            <h1>$ 10.00</h1>
-                        </div>
-                        <h2>Location</h2>
-                    </div>
-                    <button className='w-full items-center button2'>See Details</button>
-                </div>
-
-                <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
-                    <div>
-                        <div className='flex items-center justify-center bg-gray-400 w-full'>
-                            <img src={Image01} alt="" />
-                        </div>
-                        <h1>Chicken Biriyani</h1>
-                        <h2>Chef: Robi-C002</h2>
-                        <div className='flex items-center justify-between'>
-                            <h1>Rating</h1>
-                            <h1>$ 10.00</h1>
-                        </div>
-                        <h2>Location</h2>
-                    </div>
-                    <button className='w-full items-center button2'>See Details</button>
+                    <Link to={'/meals-details'} className='w-full text-center button2'>See Details</Link>
                 </div>
             </div>
         </div>
