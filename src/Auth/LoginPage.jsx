@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../Context/AuthContext';
+import { FcGoogle } from 'react-icons/fc';
 
 const LoginPage = () => {
     const { signUser, setUser, signInWithGoogle } = use(AuthContext);
@@ -33,7 +34,7 @@ const LoginPage = () => {
             })
     };
 
-    const handleShowPasswordBtn = (e) =>{
+    const handleShowPasswordBtn = (e) => {
         e.preventDefault()
         setShowPassword(!showPassword)
     }
@@ -51,47 +52,59 @@ const LoginPage = () => {
             })
     };
 
-    const handleForgotPassword = () =>{
+    const handleForgotPassword = () => {
         const email = emailRef.current.value;
-        navigate('/forgot-password', {state: {email: email}})
+        navigate('/forgot-password', { state: { email: email } })
     };
     return (
-        <div className="hero bg-base-200 min-h-screen">
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <form onSubmit={handleSignIn} className="card-body">
-                    <fieldset className="fieldset">
-                        <h1 className='text-center text-[20px] font-bold mb-2 text-[#29B467]'>Login Your Account</h1>
-                        <div className='border-b border-gray-400 mb-2'></div>
-                        {/* email */}
-                        <label className="label">Email</label>
-                        <input ref={emailRef} name='email' type="email" className="input" placeholder="Email" required />
+        <div className='max-w-[1200px] mx-auto p-15'>
+            <div className="flex items-center justify-center px-4 py-10">
+                <div className="max-w-2xl w-full bg-base-100 shadow-xl rounded-md">
 
-                        {/* password */}
-                        <label className="label">Password</label>
-                        <div className='relative'>
-                            <input name='password' type={showPassword ? 'text' : 'password'} className="input" placeholder="Password" required />
-                            <button onClick={handleShowPasswordBtn} className='top-3 right-7 text-[18px] absolute hover:cursor-pointer'>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
-                        </div>
-                        <div><a onClick={handleForgotPassword} className="link link-hover">Forgot password?</a></div>
+                    {/* LEFT SIDE - SIGNUP FORM */}
+                    <div className="p-6 md:p-10">
+                        <h2 className="text-[22px] font-bold text-center mb-2">Sign In Your Chef Bazaar Account</h2>
+                        <p className="text-gray-500 text-[14px] text-center mb-6">
+                            Order fresh homemade meals or become a chef and sell your dishes easily.
+                        </p>
 
-                        <button type='submit' className="btn btn-neutral mt-4 text-white bg-[#29B467] border-0">Login</button>
-
-                        <h1 className='py-1 text-[18px] font-semibold text-center'>Or</h1>
-
-                        {/* login-with-google */}
-                        <button onClick={handleGoogleSignin} type='button' className="btn bg-white text-black border-[#e5e5e5]">
-                            <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
-                            Login with Google
+                        {/* Google */}
+                        <button className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
+                            <FcGoogle size={20} /> Sign In with Google
                         </button>
 
-                        <div className='flex justify-center mt-2'>
-                            <div className='flex items-center gap-1 font-semibold'>
-                                <p>Don't have an account</p>
-                                <Link to={`/auth/registration`} className="link link-hover underline text-[#29B467]">Register</Link>
-                            </div>
+                        {/* Divider */}
+                        <div className="flex items-center gap-2 my-3">
+                            <div className="bg-gray-300 w-full"></div>
+                            <span className="text-gray-400">OR</span>
+                            <div className="bg-gray-300 w-full"></div>
                         </div>
-                    </fieldset>
-                </form>
+
+                        <label className="text-sm font-medium">Email Address</label>
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            className="w-full text-[14px] mt-1 mb-4 border rounded-md px-4 py-2 focus:outline-primary"
+                        />
+
+                        <label className="text-sm font-medium">Password</label>
+                        <input
+                            type="password"
+                            placeholder="At least 8 characters"
+                            className="w-full text-[14px] mt-1 mb-4 border rounded-lg px-4 py-2 focus:outline-primary"
+                        />
+
+                        {/* Submit Button */}
+                        <button className="w-full bg-[#FF6700] text-white py-3 rounded-lg font-medium hover:bg-[#e76006] transition hover:cursor-pointer flex items-center justify-center">
+                            Create Account →
+                        </button>
+
+                        <p className="text-sm text-gray-500 mt-4">
+                            Don't Have An Account{" "}
+                            <Link to={'/auth/registration'} className="text-[#FF6700] cursor-pointer">Sign Up</Link>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );
