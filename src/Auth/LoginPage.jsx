@@ -1,61 +1,65 @@
-import React, { use, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useLocation, useNavigate } from 'react-router';
-import toast from 'react-hot-toast';
-import { AuthContext } from '../Context/AuthContext';
+import { Link } from 'react-router';
+// import toast from 'react-hot-toast';
+// import { AuthContext } from '../Context/AuthContext';
 import { FcGoogle } from 'react-icons/fc';
 
 const LoginPage = () => {
-    const { signUser, setUser, signInWithGoogle } = use(AuthContext);
-    const [error, setError] = useState("");
-    const emailRef = useRef();
-    const location = useLocation();
-    const navigate = useNavigate();
+    // const { signUser, setUser, signInWithGoogle } = use(AuthContext);
+    // const [error, setError] = useState("");
+    // const emailRef = useRef();
+    // const location = useLocation();
+    // const navigate = useNavigate();
+
+    // const handleSignIn = (e) => {
+    //     e.preventDefault();
+    //     const email = e.target.email.value;
+    //     const password = e.target.password.value;
+
+    //     setError("");
+
+    //     signUser(email, password)
+    //         .then((result) => {
+    //             const user = result.user;
+    //             setUser(user);
+    //             toast.success('Login Successfully')
+    //             e.target.reset();
+    //             navigate(location.state || "/");
+
+    //         })
+    //         .catch((error) => {
+    //             setError(error.message)
+    //         })
+    // };
+
+
+
+    // const handleGoogleSignin = () => {
+    //     signInWithGoogle()
+    //         .then((result) => {
+    //             const user = result.user;
+    //             setUser(user);
+    //             toast.success('Login with google Successfully')
+    //             navigate(location.state || '/')
+    //         })
+    //         .catch((error) => {
+    //             toast.error(error)
+    //         })
+    // };
+
+    // const handleForgotPassword = () => {
+    //     const email = emailRef.current.value;
+    //     navigate('/forgot-password', { state: { email: email } })
+    // };
+
     const [showPassword, setShowPassword] = useState(false)
-
-    const handleSignIn = (e) => {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-
-        setError("");
-
-        signUser(email, password)
-            .then((result) => {
-                const user = result.user;
-                setUser(user);
-                toast.success('Login Successfully')
-                e.target.reset();
-                navigate(location.state || "/");
-
-            })
-            .catch((error) => {
-                setError(error.message)
-            })
-    };
-
     const handleShowPasswordBtn = (e) => {
         e.preventDefault()
         setShowPassword(!showPassword)
     }
 
-    const handleGoogleSignin = () => {
-        signInWithGoogle()
-            .then((result) => {
-                const user = result.user;
-                setUser(user);
-                toast.success('Login with google Successfully')
-                navigate(location.state || '/')
-            })
-            .catch((error) => {
-                toast.error(error)
-            })
-    };
 
-    const handleForgotPassword = () => {
-        const email = emailRef.current.value;
-        navigate('/forgot-password', { state: { email: email } })
-    };
     return (
         <div className='max-w-[1200px] mx-auto p-15'>
             <div className="flex items-center justify-center px-4 py-10">
@@ -70,7 +74,7 @@ const LoginPage = () => {
 
                         {/* Google */}
                         <button className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
-                            <FcGoogle size={20} /> Sign In with Google
+                            <FcGoogle size={20} /> Login with Google
                         </button>
 
                         {/* Divider */}
@@ -88,20 +92,24 @@ const LoginPage = () => {
                         />
 
                         <label className="text-sm font-medium">Password</label>
-                        <input
-                            type="password"
-                            placeholder="At least 8 characters"
-                            className="w-full text-[14px] mt-1 mb-4 border rounded-lg px-4 py-2 focus:outline-primary"
-                        />
+                        <div className='relative'>
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder="At least 8 characters"
+                                className="w-full text-[14px] mt-1 mb-4 border rounded-lg px-4 py-2 focus:outline-primary"
+                            />
+                            <button onClick={handleShowPasswordBtn} className='top-[15px] right-4 text-[18px] absolute hover:cursor-pointer'>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
+                        </div>
+                        <div><a className="link link-hover">Forgot password?</a></div>
 
                         {/* Submit Button */}
-                        <button className="w-full bg-[#FF6700] text-white py-3 rounded-lg font-medium hover:bg-[#e76006] transition hover:cursor-pointer flex items-center justify-center">
-                            Create Account →
+                        <button className="w-full bg-[#FF6700] text-white py-3 rounded-lg font-medium hover:bg-[#e76006] transition hover:cursor-pointer flex items-center justify-center mt-3">
+                            Login Your Account →
                         </button>
 
                         <p className="text-sm text-gray-500 mt-4">
-                            Don't Have An Account{" "}
-                            <Link to={'/auth/registration'} className="text-[#FF6700] cursor-pointer">Sign Up</Link>
+                            Don't have an Account{" "}
+                            <Link to={'/auth/registration'} className="text-[#FF6700] cursor-pointer">Register</Link>
                         </p>
                     </div>
                 </div>
