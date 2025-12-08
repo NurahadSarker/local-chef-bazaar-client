@@ -6,7 +6,7 @@ import useAuth from '../Hooks/useAuth';
 
 const RegisterPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { registerUser } = useAuth()
+    const { registerUser, signInWithGoogle } = useAuth()
 
     const handleRegister = (data) => {
         console.log(data)
@@ -15,6 +15,16 @@ const RegisterPage = () => {
             console.log(result.user)
         })
         .catch(error => {
+            console.log(error)
+        })
+    }
+
+    const handleGoogleLogin = () =>{
+        signInWithGoogle()
+        .then(result => {
+            console.log(result.user)
+        })
+        .catch(error =>{
             console.log(error)
         })
     }
@@ -30,7 +40,9 @@ const RegisterPage = () => {
                             </p>
 
                             {/* Google */}
-                            <button className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
+                            <button onClick={handleGoogleLogin()}
+                            type='button'
+                            className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
                                 <FcGoogle size={20} /> Register with Google
                             </button>
 
@@ -52,7 +64,7 @@ const RegisterPage = () => {
                                         className="w-full text-[14px] mt-1 mb-4 border rounded-md px-4 py-2 focus:outline-[#089916]"
                                     />
                                     {
-                                        errors.email?.type === 'required' && <p className='text-red-500 text-[12px] -mt-3'>Please write your email</p>
+                                        errors.email?.type === 'required' && <p className='text-red-500 text-[12px] -mt-3'>Please enter your email</p>
                                     }
                                 </div>
 
