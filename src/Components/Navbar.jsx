@@ -2,20 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
 import Logo from '../assets/logo.png'
 import useAuth from '../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const { user, logOutUser } = useAuth()
 
     const [theme, setTheme] = useState(localStorage.getItem('theme') || "light")
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         logOutUser()
-        .then(result => {
-            console.log(result.data)
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+            .then(result => {
+                toast.success('Log out successfully')
+                console.log(result.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     useEffect(() => {
@@ -31,7 +33,10 @@ const Navbar = () => {
     const links = <>
         <li><NavLink className='btn1' to={'/'}>Home</NavLink></li>
         <li><NavLink className='btn1' to={'/meals'}>Meals</NavLink></li>
-        <li><NavLink className='btn1' to={'/dashboard'}>Dashboard</NavLink></li>
+        {
+            user ? <li><NavLink className='btn1' to={'/dashboard'}>Dashboard</NavLink></li> : ""
+        }
+
     </>
     return (
         <div className='bg-base-100'>

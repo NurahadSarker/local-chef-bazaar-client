@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { Link } from 'react-router';
 import useAuth from '../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -12,6 +13,7 @@ const RegisterPage = () => {
         console.log(data)
         registerUser(data.email, data.password)
         .then(result => {
+            toast.success('Register successfully')
             console.log(result.user)
         })
         .catch(error => {
@@ -22,6 +24,7 @@ const RegisterPage = () => {
     const handleGoogleLogin = () =>{
         signInWithGoogle()
         .then(result => {
+            toast.success('Register with google successfully')
             console.log(result.user)
         })
         .catch(error =>{
@@ -40,7 +43,7 @@ const RegisterPage = () => {
                             </p>
 
                             {/* Google */}
-                            <button onClick={handleGoogleLogin()}
+                            <button onClick={handleGoogleLogin}
                             type='button'
                             className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
                                 <FcGoogle size={20} /> Register with Google

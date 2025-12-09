@@ -7,6 +7,8 @@ import MealsDetails from "../Pages/MealsDetails";
 import AuthLayout from "../Layouts/AuthLayout";
 import LoginPage from "../Auth/LoginPage";
 import RegisterPage from "../Auth/RegisterPage";
+import ForgotPassword from "../Components/ForgotPassword";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
     {
@@ -23,7 +25,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <PrivateRoutes>
+                    <Dashboard></Dashboard>
+                </PrivateRoutes>
             },
             {
                 path: '/meals-details',
@@ -42,6 +46,10 @@ export const router = createBrowserRouter([
             {
                 path: '/auth/registration',
                 element: <RegisterPage></RegisterPage>
+            },
+            {
+                path: '/auth/forgot-password',
+                element: <ForgotPassword></ForgotPassword>
             }
         ]
     }
