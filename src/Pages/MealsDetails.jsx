@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import Img from "../assets/chickenbiriani.jpg";
 import { NavLink, Outlet } from "react-router";
-import { MdFavoriteBorder } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 const MealDetails = () => {
+    const [favoriteBtn, setFavoriteBtn] = useState(false)
+
+    // const handleFavorite = () => {
+    //     setFavoriteBtn(!favoriteBtn)
+    // }
     return (
         <div className="max-w-5xl mx-auto my-10 p-5">
             <div className="grid md:grid-cols-2 gap-6">
@@ -18,9 +23,11 @@ const MealDetails = () => {
                 <div className="space-y-2 border-l-3 border-gray-400 pl-4">
                     <div className="flex items-center">
                         <h1 className="text-3xl font-bold">Chicken Biriyani</h1>
-                        <div className="flex items-center justify-center p-3 hover:cursor-pointer">
-                            <MdFavoriteBorder size={30}/>
-                        </div>
+                        <button onClick={()=>setFavoriteBtn(!favoriteBtn) } className="flex items-center justify-center p-3 hover:cursor-pointer">
+                            {
+                                favoriteBtn ? <MdFavorite className="text-red-500" size={30} /> : <MdFavoriteBorder size={30} />
+                            }
+                        </button>
                     </div>
                     <p className="text-gray-500">
                         Cooked by <span className="font-semibold">Nur-Ahad</span> (ID: Ch-203)
@@ -56,7 +63,7 @@ const MealDetails = () => {
                     </button>
                 </div>
             </div>
-            <div className="flex gap-8 mt-10 border-b">
+            <div className="flex gap-8 mt-10 border-b border-gray-400">
 
                 <NavLink
                     to="details"
