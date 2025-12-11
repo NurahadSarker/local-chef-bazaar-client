@@ -9,6 +9,9 @@ import LoginPage from "../Auth/LoginPage";
 import RegisterPage from "../Auth/RegisterPage";
 import ForgotPassword from "../Components/ForgotPassword";
 import PrivateRoutes from "./PrivateRoutes";
+import Details from "../Pages/Details";
+import Ingredients from "../Pages/Ingredients";
+import ReviewSection from "../Pages/ReviewSection";
 
 export const router = createBrowserRouter([
     {
@@ -33,7 +36,21 @@ export const router = createBrowserRouter([
                 path: '/meals-details',
                 element: <PrivateRoutes>
                     <MealsDetails></MealsDetails>
-                </PrivateRoutes>
+                </PrivateRoutes>,
+                children: [
+                    {
+                        path: 'details',
+                        element: <Details></Details>
+                    },
+                    {
+                        path: 'ingredients',
+                        element: <Ingredients></Ingredients>
+                    },
+                    {
+                        path: 'review-section',
+                        element: <ReviewSection></ReviewSection>
+                    }
+                ]
             },
         ]
     },
