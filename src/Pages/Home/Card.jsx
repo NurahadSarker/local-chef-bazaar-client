@@ -1,8 +1,14 @@
 import React from 'react';
 import Image01 from '../../assets/chickenbiriani.jpg'
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const Card = () => {
+    // const location = useLocation()
+    const navigate = useNavigate()
+
+    const handleDetailsBtn = () =>{
+        navigate('/meals-details')
+    }
     return (
         <div className='mt-5'>
             <div className='grid grid-cols-3 gap-5'>
@@ -21,7 +27,7 @@ const Card = () => {
                         </div>
                         <h2 className='text-gray-400 font-medium'>Location</h2>
                     </div>
-                    <Link to={'/meals-details'} className='w-full text-center button2'>See Details</Link>
+                    <Link onClick={() => handleDetailsBtn()} className='w-full text-center button2'>See Details</Link>
                 </div>
             </div>
         </div>
