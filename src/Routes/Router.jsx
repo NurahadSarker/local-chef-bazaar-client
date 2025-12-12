@@ -12,6 +12,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import Details from "../Pages/Details";
 import Ingredients from "../Pages/Ingredients";
 import ReviewSection from "../Pages/ReviewSection";
+import OrderPage from "../Pages/OrderPage";
+import DashboardLayout from "../Layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
     {
@@ -26,12 +28,12 @@ export const router = createBrowserRouter([
                 path: '/meals',
                 element: <Meals></Meals>
             },
-            {
-                path: '/dashboard',
-                element: <PrivateRoutes>
-                    <Dashboard></Dashboard>
-                </PrivateRoutes>
-            },
+            // {
+            //     path: '/dashboard',
+            //     element: <PrivateRoutes>
+            //         <Dashboard></Dashboard>
+            //     </PrivateRoutes>
+            // },
             {
                 path: '/meals-details',
                 element: <PrivateRoutes>
@@ -52,6 +54,12 @@ export const router = createBrowserRouter([
                     }
                 ]
             },
+            {
+                path: '/order-page',
+                element: <PrivateRoutes>
+                    <OrderPage></OrderPage>
+                </PrivateRoutes>
+            }
         ]
     },
     {
@@ -71,5 +79,11 @@ export const router = createBrowserRouter([
                 element: <ForgotPassword></ForgotPassword>
             }
         ]
+    },
+    {
+        path: '/dashboard',
+        element: <PrivateRoutes>
+            <DashboardLayout></DashboardLayout>
+        </PrivateRoutes>
     }
 ]);

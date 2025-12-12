@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import Img from "../assets/chickenbiriani.jpg";
-import { NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 const MealDetails = () => {
@@ -58,9 +58,9 @@ const MealDetails = () => {
                     <div className="space-y-2">
                         <p className="text-xl font-bold">Tk. 250</p>
                     </div>
-                    <button className="w-full bg-[#FF6700] hover:bg-[#f06000] hover:cursor-pointer text-white py-3 rounded-2xl font-semibold mt-4">
+                    <Link to={'/order-page'} className="btn w-full bg-[#FF6700] hover:bg-[#f06000] hover:cursor-pointer text-white rounded-2xl font-semibold mt-4">
                         Order Now
-                    </button>
+                    </Link>
                 </div>
             </div>
             <div className="flex gap-8 mt-10 border-b border-gray-400">
