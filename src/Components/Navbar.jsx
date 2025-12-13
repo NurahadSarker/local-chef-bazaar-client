@@ -33,17 +33,17 @@ const Navbar = () => {
     const links = <>
         <li><NavLink className={({ isActive }) =>
             isActive
-                ? "pb-3 font-semibold text-black bg-base-100 hover:bg-base-100 text-[16px]"
-                : "pb-3 text-gray-500 hover:text-black hover:bg-base-100 text-[16px]"} to={'/'}>Home</NavLink></li>
+                ? "pb-3 font-semibold text-[#FF6700] bg-base-100 hover:bg-base-100 text-[16px]"
+                : "pb-3 text-gray-500 hover:text-[#FF6700] hover:bg-base-100 text-[16px]"} to={'/'}>Home</NavLink></li>
         <li><NavLink className={({ isActive }) =>
             isActive
-                ? "pb-3 font-semibold text-black bg-base-100 hover:bg-base-100 text-[16px]"
-                : "pb-3 text-gray-500 hover:text-black hover:bg-base-100 text-[16px]"} to={'/meals'}>Meals</NavLink></li>
+                ? "pb-3 font-semibold text-[#FF6700] bg-base-100 hover:bg-base-100 text-[16px]"
+                : "pb-3 text-gray-500 hover:text-[#FF6700] hover:bg-base-100 text-[16px]"} to={'/meals'}>Meals</NavLink></li>
         {
             user ? <li><NavLink className={({ isActive }) =>
                 isActive
-                    ? "pb-3 font-semibold text-black bg-base-100 hover:bg-base-100 text-[16px]"
-                    : "pb-3 text-gray-500 hover:text-black hover:bg-base-100 text-[16px]"} to={'dashboard'}>Dashboard</NavLink></li> : ""
+                    ? "pb-3 font-semibold text-[#FF6700] bg-base-100 hover:bg-base-100 text-[16px]"
+                    : "pb-3 text-gray-500 hover:text-[#FF6700] hover:bg-base-100 text-[16px]"} to={'dashboard'}>Dashboard</NavLink></li> : ""
         }
 
     </>
