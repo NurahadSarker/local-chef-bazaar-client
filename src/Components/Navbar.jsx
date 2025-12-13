@@ -43,7 +43,7 @@ const Navbar = () => {
             user ? <li><NavLink className={({ isActive }) =>
                 isActive
                     ? "pb-3 font-semibold text-black bg-base-100 hover:bg-base-100 text-[16px]"
-                    : "pb-3 text-gray-500 hover:text-black hover:bg-base-100 text-[16px]"} to={'/dashboard'}>Dashboard</NavLink></li> : ""
+                    : "pb-3 text-gray-500 hover:text-black hover:bg-base-100 text-[16px]"} to={'dashboard'}>Dashboard</NavLink></li> : ""
         }
 
     </>

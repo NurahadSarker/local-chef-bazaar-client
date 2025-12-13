@@ -14,6 +14,10 @@ import Ingredients from "../Pages/Ingredients";
 import ReviewSection from "../Pages/ReviewSection";
 import OrderPage from "../Pages/OrderPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
+import MyOrders from "../Pages/PageForDashboard/MyOrders";
+import MyProfile from "../Pages/PageForDashboard/MyProfile";
+import MyReviews from "../Pages/PageForDashboard/MyReviews";
+import FavoriteMeals from "../Pages/PageForDashboard/FavoriteMeals";
 
 export const router = createBrowserRouter([
     {
@@ -81,9 +85,27 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: '/dashboard',
+        path: 'dashboard',
         element: <PrivateRoutes>
             <DashboardLayout></DashboardLayout>
-        </PrivateRoutes>
+        </PrivateRoutes>,
+        children:[
+            {
+                path: 'my-profile',
+                element: <MyProfile></MyProfile>
+            },
+            {
+                path: 'my-orders',
+                element: <MyOrders></MyOrders>
+            },
+            {
+                path: 'my-reviews',
+                element: <MyReviews></MyReviews>
+            },
+            {
+                path: 'favorite-meals',
+                element: <FavoriteMeals></FavoriteMeals>
+            }
+        ]
     }
 ]);
