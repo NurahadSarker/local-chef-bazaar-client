@@ -68,10 +68,9 @@ const MealDetails = () => {
                 <NavLink
                     to="details"
                     className={({ isActive }) =>
-                        isActive
-                            ? "pb-3 font-semibold text-black"
-                            : "pb-3 text-gray-500 hover:text-black"
-                    }
+            isActive
+                ? "pb-3 font-semibold text-[#FF6700] text-[16px]"
+                : "pb-3 text-gray-500 hover:text-[#FF6700] text-[16px]"}
                 >
                     Details
                 </NavLink>
@@ -79,10 +78,9 @@ const MealDetails = () => {
                 <NavLink
                     to="ingredients"
                     className={({ isActive }) =>
-                        isActive
-                            ? "pb-3 font-semibold text-black"
-                            : "pb-3 text-gray-500 hover:text-black"
-                    }
+            isActive
+                ? "pb-3 font-semibold text-[#FF6700] text-[16px]"
+                : "pb-3 text-gray-500 hover:text-[#FF6700] text-[16px]"}
                 >
                     Ingredients
                 </NavLink>
@@ -90,10 +88,9 @@ const MealDetails = () => {
                 <NavLink
                     to="review-section"
                     className={({ isActive }) =>
-                        isActive
-                            ? "pb-3 font-semibold text-black"
-                            : "pb-3 text-gray-500 hover:text-black"
-                    }
+            isActive
+                ? "pb-3 font-semibold text-[#FF6700] text-[16px]"
+                : "pb-3 text-gray-500 hover:text-[#FF6700] text-[16px]"}
                 >
                     Customer Reviews
                 </NavLink>

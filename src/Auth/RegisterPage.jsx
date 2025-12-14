@@ -12,24 +12,24 @@ const RegisterPage = () => {
     const handleRegister = (data) => {
         console.log(data)
         registerUser(data.email, data.password)
-        .then(result => {
-            toast.success('Register successfully')
-            console.log(result.user)
-        })
-        .catch(error => {
-            console.log(error)
-        })
+            .then(result => {
+                toast.success('Register successfully')
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
-    const handleGoogleLogin = () =>{
+    const handleGoogleLogin = () => {
         signInWithGoogle()
-        .then(result => {
-            toast.success('Register with google successfully')
-            console.log(result.user)
-        })
-        .catch(error =>{
-            console.log(error)
-        })
+            .then(result => {
+                toast.success('Register with google successfully')
+                console.log(result.user)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
     return (
         <div className='max-w-[1200px] mx-auto p-15'>
@@ -44,8 +44,8 @@ const RegisterPage = () => {
 
                             {/* Google */}
                             <button onClick={handleGoogleLogin}
-                            type='button'
-                            className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
+                                type='button'
+                                className="w-full flex items-center justify-center gap-2 border rounded-md py-2 transition btn">
                                 <FcGoogle size={20} /> Register with Google
                             </button>
 
@@ -95,6 +95,19 @@ const RegisterPage = () => {
                                 placeholder="Enter your photo url"
                                 className="w-full text-[14px] mt-1 mb-4 border rounded-md px-4 py-2 focus:outline-[#089916]"
                             />
+                            {/* <div>
+                                <label className="text-sm font-medium">
+                                    Upload Your Image
+                                </label>
+
+                                <input
+                                    type="file"
+                                    {...register('photo', { required: true })}
+                                    placeholder="Enter your photo url"
+                                    className="w-full text-[14px] mt-1 mb-4 border rounded-md px-4 py-2 focus:outline-[#089916]"
+                                />
+                            </div> */}
+
                             {
                                 errors.photo?.type === 'required' && <p className='text-red-500 text-[12px] -mt-3'>Give your photo url</p>
                             }

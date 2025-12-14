@@ -92,7 +92,7 @@ const ReviewSection = () => {
             </div>
 
             {/* ----- Add Review Form ----- */}
-            <div className="mt-10 p-6 rounded-2xl border shadow-sm bg-white">
+            <div className="mt-10 p-6 rounded-2xl shadow-sm bg-base-100">
                 <h2 className="text-xl font-semibold mb-3">Add Your Review</h2>
 
                 {/* Rating Stars */}
@@ -117,14 +117,14 @@ const ReviewSection = () => {
                     <textarea
                         value={review}
                         onChange={(e) => setReview(e.target.value)}
-                        className="w-full border rounded-xl p-3 h-28 outline-none focus:ring focus:ring-purple-300"
+                        className="w-full  rounded-xl p-3 h-28 outline-none focus:ring focus:ring-[#FF6700]"
                         placeholder="Write your review..."
                         required
                     ></textarea>
 
                     <button
                         type="submit"
-                        className="mt-4 bg-purple-700 hover:bg-purple-800 text-white py-3 px-6 rounded-xl font-semibold"
+                        className="mt-4 button2 py-3 px-6 rounded-xl font-semibold"
                     >
                         Submit Review
                     </button>
