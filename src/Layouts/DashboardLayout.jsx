@@ -13,9 +13,9 @@ const DashboardLayout = () => {
         document.querySelector("html").setAttribute("data-theme", savedTheme);
     }, []);
 
-    // const role = "user"
+    const role = "user"
     // const role = "chef"
-    const role = "admin"
+    // const role = "admin"
 
     return (
         <div className='bg-base-300'>
