@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const MyOrders = () => {
     return (
-        <div className="bg-base-100 max-w-6xl mx-auto shadow-lg p-10 rounded-2xl">
+        <div className="bg-base-100 max-w-6xl mx-auto my-15 shadow-lg p-10 rounded-2xl">
             <h1 className="text-[32px] font-bold mb-3">My Orders</h1>
             <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                 <table className="table">

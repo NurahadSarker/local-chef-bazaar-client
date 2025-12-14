@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const MyProfile = () => {
 
     return (
-        <div className="bg-base-100 max-w-4xl mx-auto shadow-lg p-10 rounded-2xl border border-[#FF6700]">
+        <div className="bg-base-100 max-w-4xl mx-auto my-15 shadow-lg p-10 rounded-2xl border border-[#FF6700]">
             <h1 className="text-[32px] font-bold mb-5">My Profile</h1>
             <div className="flex items-center gap-5 border-b-2 border-base-300 pb-7">
                 <div className="w-30 bg-base-300 rounded-full h-30 shadow-md flex items-center justify-center border border-[#FF6700]">

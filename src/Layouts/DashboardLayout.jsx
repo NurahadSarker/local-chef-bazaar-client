@@ -14,11 +14,11 @@ const DashboardLayout = () => {
     }, []);
 
     // const role = "user"
-    const role = "chef"
-    // const role = "admin"
+    // const role = "chef"
+    const role = "admin"
 
     return (
-        <div className='min-h-screen bg-base-300'>
+        <div className='bg-base-300'>
             <div className="drawer lg:drawer-open poppins">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
@@ -34,7 +34,7 @@ const DashboardLayout = () => {
                     </nav>
                     {/* Page content here */}
                     {/* <div className="p-4">Page Content</div> */}
-                    <div className=' py-15'>
+                    <div className=''>
                         <Outlet></Outlet>
                     </div>
                 </div>
@@ -104,19 +104,19 @@ const DashboardLayout = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'create-meals'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Orders">
+                                        <Link to={'create-meals'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Create Meals">
                                             <MdAddBox size={20} />
                                             <span className="is-drawer-close:hidden">Create Meals</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'my-meals'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Reviews">
+                                        <Link to={'my-meals'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Meals">
                                             <MdRestaurantMenu size={20} />
                                             <span className="is-drawer-close:hidden">My Meals</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'order-request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Favorite Meals">
+                                        <Link to={'order-request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Order Request">
                                             <FaClipboardList size={20} />
                                             <span className="is-drawer-close:hidden">Order Request</span>
                                         </Link>
