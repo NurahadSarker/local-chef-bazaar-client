@@ -13,7 +13,8 @@ const DashboardLayout = () => {
         document.querySelector("html").setAttribute("data-theme", savedTheme);
     }, []);
     return (
-        <div className="drawer lg:drawer-open poppins">
+        <div className='min-h-screen bg-base-300'>
+            <div className="drawer lg:drawer-open poppins">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 {/* Navbar */}
@@ -27,7 +28,7 @@ const DashboardLayout = () => {
                 </nav>
                 {/* Page content here */}
                 {/* <div className="p-4">Page Content</div> */}
-                <div className='bg-base-300 py-15 min-h-screen'>
+                <div className=' py-15'>
                     <Outlet></Outlet>
                 </div>
             </div>
@@ -73,6 +74,7 @@ const DashboardLayout = () => {
                     </ul>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

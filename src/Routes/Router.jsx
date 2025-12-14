@@ -18,6 +18,7 @@ import MyOrders from "../Pages/PageForDashboard/MyOrders";
 import MyProfile from "../Pages/PageForDashboard/MyProfile";
 import MyReviews from "../Pages/PageForDashboard/MyReviews";
 import FavoriteMeals from "../Pages/PageForDashboard/FavoriteMeals";
+import DashHomePage from "../Pages/PageForDashboard/DashHomePage";
 
 export const router = createBrowserRouter([
     {
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
             <DashboardLayout></DashboardLayout>
         </PrivateRoutes>,
         children:[
+            {
+                index: true,
+                element: <DashHomePage></DashHomePage>
+            },
             {
                 path: 'my-profile',
                 element: <MyProfile></MyProfile>
