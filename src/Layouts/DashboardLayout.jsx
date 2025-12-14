@@ -145,19 +145,19 @@ const DashboardLayout = () => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'my-orders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Orders">
+                                        <Link to={'manage-users'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Users">
                                             <MdManageAccounts size={20} />
                                             <span className="is-drawer-close:hidden">Manage Users</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'my-reviews'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My Reviews">
+                                        <Link to={'manage-request'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Requests">
                                             <MdReviews size={20} />
                                             <span className="is-drawer-close:hidden">Manage Requests</span>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={'favorite-meals'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Favorite Meals">
+                                        <Link to={'platform-statistics'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Platform Statistics">
                                             <MdInsights size={20} />
                                             <span className="is-drawer-close:hidden">Platform Statistics</span>
                                         </Link>

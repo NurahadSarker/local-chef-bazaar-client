@@ -22,6 +22,9 @@ import DashHomePage from "../Pages/PageForDashboard/DashHomePage";
 import CreateMeals from "../Pages/ChefPage/CreateMeals";
 import MyMeals from "../Pages/ChefPage/MyMeals";
 import OrderReq from "../Pages/ChefPage/OrderReq";
+import ManageUsers from "../Pages/AdimnPage/ManageUsers";
+import ManageReq from "../Pages/AdimnPage/ManageReq";
+import PlatformStatistics from "../Pages/AdimnPage/PlatformStatistics";
 
 export const router = createBrowserRouter([
     {
@@ -125,6 +128,18 @@ export const router = createBrowserRouter([
             {
                 path: 'order-request',
                 element: <OrderReq></OrderReq>
+            },
+            {
+                path: 'manage-users',
+                element: <ManageUsers></ManageUsers>
+            },
+            {
+                path: 'manage-request',
+                element: <ManageReq></ManageReq>
+            },
+            {
+                path: 'platform-statistics',
+                element: <PlatformStatistics></PlatformStatistics>
             }
         ]
     }
