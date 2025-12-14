@@ -19,6 +19,9 @@ import MyProfile from "../Pages/PageForDashboard/MyProfile";
 import MyReviews from "../Pages/PageForDashboard/MyReviews";
 import FavoriteMeals from "../Pages/PageForDashboard/FavoriteMeals";
 import DashHomePage from "../Pages/PageForDashboard/DashHomePage";
+import CreateMeals from "../Pages/ChefPage/CreateMeals";
+import MyMeals from "../Pages/ChefPage/MyMeals";
+import OrderReq from "../Pages/ChefPage/OrderReq";
 
 export const router = createBrowserRouter([
     {
@@ -110,6 +113,18 @@ export const router = createBrowserRouter([
             {
                 path: 'favorite-meals',
                 element: <FavoriteMeals></FavoriteMeals>
+            },
+            {
+                path: 'create-meals',
+                element: <CreateMeals></CreateMeals>
+            },
+            {
+                path: 'my-meals',
+                element: <MyMeals></MyMeals>
+            },
+            {
+                path: 'order-request',
+                element: <OrderReq></OrderReq>
             }
         ]
     }
