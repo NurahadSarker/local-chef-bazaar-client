@@ -1,20 +1,37 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import useAuth from '../Hooks/useAuth';
 import toast from 'react-hot-toast';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const RegisterPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { registerUser, signInWithGoogle } = useAuth()
+    const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
 
     const handleRegister = (data) => {
         console.log(data)
         registerUser(data.email, data.password)
-            .then(result => {
-                toast.success('Register successfully')
-                console.log(result.user)
+            .then(async (result) => {
+                console.log(result)
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    photo: data.photo,
+                    address: data.address,
+                    role: "user",
+                    status: "active",
+                    createdAt: new Date()
+                };
+                const res = await axiosSecure.post("/users", userInfo);
+
+                if (res.data.insertedId) {
+                    toast.success("Register successfully");
+                    navigate(location?.state || '/')
+                }
             })
             .catch(error => {
                 console.log(error)
@@ -23,9 +40,22 @@ const RegisterPage = () => {
 
     const handleGoogleLogin = () => {
         signInWithGoogle()
-            .then(result => {
-                toast.success('Register with google successfully')
-                console.log(result.user)
+            .then(async (result) => {
+                const user = result.user;
+
+                const userInfo = {
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                    role: "user",
+                    status: "active",
+                    createdAt: new Date()
+                };
+
+                await axiosSecure.post("/users", userInfo);
+
+                toast.success("Register with Google successfully");
+                navigate(location?.state || '/')
             })
             .catch(error => {
                 console.log(error)
