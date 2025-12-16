@@ -1,26 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Img from "../../assets/chickenbiriani.jpg";
+import useAuth from "../../Hooks/useAuth";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const MyMeals = () => {
-    // Dummy meals data
-    const meals = [
-        {
-            id: 1,
-            name: "Chicken Biriyani",
-            price: 250,
-            deliveryTime: "30–40 mins",
-            experience: "4+ Years",
-            ingredients: "Rice, Chicken, Spices",
-        },
-        {
-            id: 2,
-            name: "Beef Tehari",
-            price: 280,
-            deliveryTime: "35–45 mins",
-            experience: "4+ Years",
-            ingredients: "Rice, Beef, Special Masala",
-        },
-    ];
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    const [meals, setMeals] = useState([]);
+
+    /* ===== FETCH DATA ===== */
+    useEffect(() => {
+        if (user?.email) {
+            axiosSecure
+                .get(`/meals/chef/${user.email}`)
+                .then(res => setMeals(res.data));
+        }
+    }, [user, axiosSecure]);
+
+    /* ===== DELETE ===== */
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Delete this meal?");
+        if (!confirmDelete) return;
+
+        const res = await axiosSecure.delete(`/meals/${id}`);
+        if (res.data.deletedCount > 0) {
+            setMeals(meals.filter(meal => meal._id !== id));
+        }
+    };
+
+    /* ===== UPDATE ===== */
+    const handleUpdate = async (meal) => {
+        const newPrice = prompt("Enter new price", meal.price);
+        if (!newPrice) return;
+
+        const res = await axiosSecure.patch(`/meals/${meal._id}`, {
+            price: parseFloat(newPrice),
+        });
+
+        if (res.data.modifiedCount > 0) {
+            setMeals(
+                meals.map(m =>
+                    m._id === meal._id ? { ...m, price: newPrice } : m
+                )
+            );
+        }
+    };
 
     return (
         <div className="p-15 bg-base-100">
@@ -29,45 +53,54 @@ const MyMeals = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {meals.map((meal) => (
                     <div
-                        key={meal.id}
+                        key={meal._id}
                         className="bg-base-100 rounded-2xl shadow-lg overflow-hidden border border-[#FF6700]"
                     >
-                        {/* Image */}
+                        {/* Food Image */}
                         <img
-                            src={Img}
-                            alt={meal.name}
+                            src={meal.image || Img}
+                            alt={meal.foodName}
                             className="h-48 w-full object-cover"
                         />
 
-                        {/* Content */}
                         <div className="p-4 space-y-2">
-                            <h3 className='text-xl font-semibold'>{meal.name}</h3>
+                            {/* Food Name */}
+                            <h3 className="text-xl font-semibold">
+                                {meal.foodName}
+                            </h3>
 
+                            {/* Rating */}
+                            <p className="text-sm">
+                                ⭐ Rating: {meal.rating || 0}/5
+                            </p>
+
+                            {/* Ingredients */}
                             <p className="text-sm text-gray-500">
-                                Ingredients: {meal.ingredients}
+                                <b>Ingredients:</b> {meal.ingredients}
                             </p>
 
                             <div className="text-sm text-gray-600 space-y-1">
-                                <p>
-                                    <b>Price:</b> Tk. {meal.price}
-                                </p>
-                                <p>
-                                    <b>Delivery:</b> {meal.deliveryTime}
-                                </p>
-                                <p>
-                                    <b>Chef Exp:</b> {meal.experience}
-                                </p>
+                                <p><b>Price:</b> Tk. {meal.price}</p>
+                                <p><b>Delivery Time:</b> {meal.deliveryTime}</p>
+                                <p><b>Chef Name:</b> {meal.chefName}</p>
+                                <p><b>Chef ID:</b> {meal.chefId}</p>
                             </div>
 
                             {/* Action Buttons */}
                             <div className="flex gap-3 mt-4">
-                                <button className="flex-1 py-2 rounded-lg bg-green-500 text-sm font-semibold">
+                                <button
+                                    onClick={() => handleUpdate(meal)}
+                                    className="flex-1 py-2 rounded-lg bg-green-500 text-white text-sm font-semibold"
+                                >
                                     Update
                                 </button>
 
-                                <button className="flex-1 py-2 rounded-lg bg-red-500  text-white text-sm font-semibold">
+                                <button
+                                    onClick={() => handleDelete(meal._id)}
+                                    className="flex-1 py-2 rounded-lg bg-red-500 text-white text-sm font-semibold"
+                                >
                                     Delete
-                                </button> 
+                                </button>
                             </div>
                         </div>
                     </div>

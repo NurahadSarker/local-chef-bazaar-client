@@ -72,12 +72,12 @@ const MyProfile = () => {
                 <button
                     onClick={() => handleRoleRequest("chef")}
                     disabled={profile.role === "chef" || profile.role === "admin"}
-                    className="mr-7 bg-[#FF6700] px-10 py-3 rounded-2xl">Be a Chef</button>
+                    className="mr-7 bg-[#FF6700] px-10 py-3 rounded-2xl cursor-pointer">Be a Chef</button>
                 <button
                 onClick={() => handleRoleRequest("admin")}
                 disabled={
                     profile.role === "admin"
-                } className="bg-[#089916] px-10 py-3 rounded-2xl">Be an Admin</button>
+                } className="bg-[#089916] px-10 py-3 rounded-2xl cursor-pointer">Be an Admin</button>
             </div>
         </div>
     );

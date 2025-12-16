@@ -146,17 +146,30 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../Hooks/useAuth';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { useEffect, useState } from "react";
+
 
 const CreateMeals = () => {
 
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const [dbUser, setDbUser] = useState(null);
+    useEffect(() => {
+        if (user?.email) {
+            axiosSecure
+                .get(`/users/profile?email=${user.email}`)
+                .then(res => {
+                    setDbUser(res.data);
+                });
+        }
+    }, [user, axiosSecure]);
+
 
     const {
         register,
         handleSubmit,
         reset,
-        formState: { errors }
+        formState: {errors}
     } = useForm();
 
     // 🔥 SUBMIT HANDLER
@@ -173,15 +186,16 @@ const CreateMeals = () => {
             const mealInfo = {
                 foodName: data.foodName,
                 chefName: data.chefName,
-                image: reader.result, // base64 image
+                image: reader.result,
                 price: parseFloat(data.price),
                 deliveryTime: data.deliveryTime,
                 experience: data.experience,
                 ingredients: data.ingredients,
-                chefId: user?.chefId,
+                chefId: dbUser?.chefId,
                 chefEmail: user?.email,
                 createdAt: new Date(),
             };
+
 
             const res = await axiosSecure.post('/meals', mealInfo);
 
@@ -299,7 +313,7 @@ const CreateMeals = () => {
                     </label>
                     <input
                         type="text"
-                        value={user?.chefId || ""}
+                        value={dbUser?.chefId || ""}
                         readOnly
                         className="w-full input input-bordered bg-base-200 cursor-not-allowed"
                     />
