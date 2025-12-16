@@ -8,35 +8,39 @@ import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 const RegisterPage = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { registerUser, signInWithGoogle } = useAuth()
+    const { registerUser, signInWithGoogle, updateUser } = useAuth()
     const navigate = useNavigate()
     const axiosSecure = useAxiosSecure()
 
     const handleRegister = (data) => {
-        console.log(data)
         registerUser(data.email, data.password)
-            .then(async (result) => {
-                console.log(result)
+            .then(async () => {
+
+                await updateUser({
+                    displayName: data.name,
+                    photoURL: data.photo
+                });
+
                 const userInfo = {
                     name: data.name,
                     email: data.email,
                     photo: data.photo,
                     address: data.address,
-                    role: "user",
-                    status: "active",
                     createdAt: new Date()
                 };
+
                 const res = await axiosSecure.post("/users", userInfo);
 
-                if (res.data.insertedId) {
-                    toast.success("Register successfully");
-                    navigate(location?.state || '/')
+                if (res.data.insertedId || res.data.message === "User already exists") {
+                    toast.success("Register successful");
+                    navigate('/');
                 }
             })
             .catch(error => {
-                console.log(error)
-            })
-    }
+                toast.error(error.message);
+            });
+    };
+
 
     const handleGoogleLogin = () => {
         signInWithGoogle()
@@ -47,15 +51,15 @@ const RegisterPage = () => {
                     name: user.displayName,
                     email: user.email,
                     photo: user.photoURL,
-                    role: "user",
-                    status: "active",
                     createdAt: new Date()
                 };
 
-                await axiosSecure.post("/users", userInfo);
+                const res = await axiosSecure.post("/users", userInfo);
 
-                toast.success("Register with Google successfully");
-                navigate(location?.state || '/')
+                if (res.data.insertedId || res.data.message === "User already exists") {
+                    toast.success("Login successful");
+                    navigate('/');
+                }
             })
             .catch(error => {
                 console.log(error)

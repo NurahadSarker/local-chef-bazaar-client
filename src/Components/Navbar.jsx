@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router';
-import Logo from '../assets/logo.png'
+import Logo from '../assets/logo.png';
+import avatar from '../assets/user-avatar.png'
 import useAuth from '../Hooks/useAuth';
 import toast from 'react-hot-toast';
 
@@ -81,9 +82,9 @@ const Navbar = () => {
                         <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
                     </label>
 
-                    {/* <div>
-                        <img src="" alt="" />
-                    </div> */}
+                    <div>
+                        <img className='w-10 rounded-full mr-2' src={user?.photoURL || avatar} alt="Image" />
+                    </div>
 
                     {
                         user ? <Link onClick={handleLogOut} to={'/auth/login'} className="button2">Log Out</Link> : <Link to={'/auth/login'} className="button2">Login</Link>
