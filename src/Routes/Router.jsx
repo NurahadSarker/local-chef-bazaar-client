@@ -47,7 +47,11 @@ export const router = createBrowserRouter([
             // },
             {
                 path: '/meals-details/:id',
-                loader:({ params }) => fetch(`http://localhost:5000/meals/${params.id}`),
+                id: 'meal-detail',
+                loader: async ({ params }) => {
+                    const res = await fetch(`http://localhost:5000/meals/${params.id}`);
+                    return res.json();
+                },
                 element: <PrivateRoutes>
                     <MealsDetails></MealsDetails>
                 </PrivateRoutes>,
@@ -97,7 +101,7 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes>
             <DashboardLayout></DashboardLayout>
         </PrivateRoutes>,
-        children:[
+        children: [
             {
                 index: true,
                 element: <DashHomePage></DashHomePage>
