@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import Img from "../assets/chickenbiriani.jpg";
-import { Link, NavLink, Outlet } from "react-router";
+import { Link, NavLink, Outlet, useLoaderData } from "react-router";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 const MealDetails = () => {
     const [favoriteBtn, setFavoriteBtn] = useState(false)
+    const meals = useLoaderData()
+    console.log(meals)
 
     // const handleFavorite = () => {
     //     setFavoriteBtn(!favoriteBtn)
@@ -15,14 +17,14 @@ const MealDetails = () => {
             <div className="grid md:grid-cols-2 gap-6">
                 <div>
                     <img
-                        src={Img}
+                        src={meals.image}
                         alt="Food"
                         className="rounded-3xl shadow-md w-full"
                     />
                 </div>
                 <div className="space-y-2 border-l-3 border-gray-400 pl-4">
                     <div className="flex items-center">
-                        <h1 className="text-3xl font-bold">Chicken Biriyani</h1>
+                        <h1 className="text-3xl font-bold">{meals.foodName}</h1>
                         <button onClick={()=>setFavoriteBtn(!favoriteBtn) } className="flex items-center justify-center p-3 hover:cursor-pointer">
                             {
                                 favoriteBtn ? <MdFavorite className="text-red-500" size={30} /> : <MdFavoriteBorder size={30} />
@@ -30,12 +32,12 @@ const MealDetails = () => {
                         </button>
                     </div>
                     <p className="text-gray-500">
-                        Cooked by <span className="font-semibold">Nur-Ahad</span> (ID: Ch-203)
+                        Cooked by <span className="font-semibold">{meals.chefName}</span> (ID: {meals.chefId})
                     </p>
                     <div>
                         <p className="text-sm text-gray-500">Chef Experience</p>
                         <span className="py-1 text-sm font-semibold">
-                            4+ Years Experience
+                            {meals.experience} Years Experience
                         </span>
                     </div>
                     <div className="flex items-center gap-1 text-yellow-500">
@@ -56,7 +58,7 @@ const MealDetails = () => {
 
                     </div>
                     <div className="space-y-2">
-                        <p className="text-xl font-bold">Tk. 250</p>
+                        <p className="text-xl font-bold">Tk. {meals.price}</p>
                     </div>
                     <Link to={'/order-page'} className="btn w-full bg-[#FF6700] hover:bg-[#f06000] hover:cursor-pointer text-white rounded-2xl font-semibold mt-4">
                         Order Now

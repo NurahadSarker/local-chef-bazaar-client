@@ -12,7 +12,7 @@ const Meals = () => {
     useEffect(() => {
         if (user?.email) {
             axiosSecure
-                .get(`/meals/chef/${user.email}`)
+                .get(`/meals`)
                 .then(res => setMeals(res.data));
         }
     }, [user, axiosSecure]);
@@ -24,7 +24,16 @@ const Meals = () => {
                     Find the perfect dish, check ingredients, and discover your next favorite meal.
                 </p>
             </div>
-            <Card meals={meals}></Card>
+            <div className='mt-5'>
+                <div className='grid grid-cols-3 gap-5'>
+
+                    {
+                        meals.map((meal) => (
+                            <Card key={meal._id} meal={meal}></Card>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
     );
 };

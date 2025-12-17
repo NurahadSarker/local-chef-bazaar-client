@@ -1,8 +1,9 @@
 import React from 'react';
-import Image01 from '../../assets/chickenbiriani.jpg'
 import { Link } from 'react-router';
+import Image01 from '../../assets/chickenbiriani.jpg'
 
-const Card = ({ meal }) => {
+
+const CardForDailyMeals = ({ meal }) => {
     // const location = useLocation()
     // const navigate = useNavigate()
 
@@ -30,4 +31,4 @@ const Card = ({ meal }) => {
     );
 };
 
-export default Card;
+export default CardForDailyMeals;

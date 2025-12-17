@@ -1,6 +1,9 @@
 import React from 'react';
+import { useLoaderData } from 'react-router';
 
 const Ingredients = () => {
+    const meals = useLoaderData()
+    console.log(meals?.ingredients)
     return (
         <div>
             <h1 className='text-[20px] font-semibold'>Ingredients</h1>
