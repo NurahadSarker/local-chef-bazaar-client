@@ -76,7 +76,8 @@ const MyMeals = () => {
 
                             {/* Ingredients */}
                             <p className="text-sm text-gray-500">
-                                <b>Ingredients:</b> {meal.ingredients}
+                                <b>Ingredients:</b> {meal.ingredients?.details}
+
                             </p>
 
                             <div className="text-sm text-gray-600 space-y-1">

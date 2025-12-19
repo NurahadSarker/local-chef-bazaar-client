@@ -333,11 +333,15 @@
 
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const OrderPage = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
+    const axiosSecure = useAxiosSecure();
+
     const meal = state?.meal;
+    const user = { email: "user@example.com" }; // later authContext থেকে আসবে
 
     if (!meal) {
         return (
@@ -356,6 +360,36 @@ const OrderPage = () => {
     }
 
     const [quantity, setQuantity] = useState(1);
+    const [address, setAddress] = useState("");
+
+    // 🔥 Confirm Order Logic (Axios)
+    const handleConfirmOrder = async () => {
+        const orderData = {
+            mealId: meal._id,
+            mealName: meal.foodName,
+            price: Number(meal.price),
+            quantity,
+            totalPrice: Number(meal.price) * quantity,
+
+            chefId: meal.chefId,
+            chefEmail: meal.chefEmail,
+
+            userEmail: user.email,
+            deliveryAddress: address,
+        };
+
+        try {
+            const res = await axiosSecure.post("/orders", orderData);
+
+            if (res.data.insertedId) {
+                alert("✅ Order placed successfully!");
+                navigate("/meals");
+            }
+        } catch (error) {
+            console.error(error);
+            alert("❌ Failed to place order");
+        }
+    };
 
     return (
         <div className="max-w-5xl mx-auto py-15">
@@ -409,6 +443,8 @@ const OrderPage = () => {
                         <input
                             type="text"
                             placeholder="Enter delivery address"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                             className="border w-full px-3 py-2 rounded-md mb-4"
                         />
 
@@ -421,7 +457,10 @@ const OrderPage = () => {
                             className="border w-full px-4 py-2 rounded-md mb-4"
                         />
 
-                        <button className="w-full bg-[#FF6700] hover:bg-[#f06000] text-white py-3 rounded-md mt-3 font-semibold">
+                        <button
+                            onClick={handleConfirmOrder}
+                            className="w-full bg-[#FF6700] hover:bg-[#f06000] text-white py-3 rounded-md mt-3 font-semibold"
+                        >
                             Confirm Order
                         </button>
                     </div>
@@ -461,3 +500,4 @@ const OrderPage = () => {
 };
 
 export default OrderPage;
+
