@@ -39,19 +39,9 @@ export const router = createBrowserRouter([
                 path: '/meals',
                 element: <Meals></Meals>
             },
-            // {
-            //     path: '/dashboard',
-            //     element: <PrivateRoutes>
-            //         <Dashboard></Dashboard>
-            //     </PrivateRoutes>
-            // },
             {
                 path: '/meals-details/:id',
-                id: 'meal-detail',
-                loader: async ({ params }) => {
-                    const res = await fetch(`http://localhost:5000/meals/${params.id}`);
-                    return res.json();
-                },
+                loader: ({ params }) => fetch(`http://localhost:5000/meals/${params.id}`),
                 element: <PrivateRoutes>
                     <MealsDetails></MealsDetails>
                 </PrivateRoutes>,

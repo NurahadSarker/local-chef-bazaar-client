@@ -223,37 +223,164 @@
 
 
 
+// import React, { useState } from "react";
+
+// const OrderPage = () => {
+//     const [quantity, setQuantity] = useState(1);
+
+//     // Auto-filled Dummy Data
+//     const mealName = "Chicken Biryani";
+//     const price = 500;
+//     const chefId = "C001";
+//     const userEmail = "user@example.com";
+
+//     return (
+//         <div className="max-w-5xl mx-auto py-15 ">
+//             <div className="bg-base-100 shadow-md rounded-xl border border-gray-400 py-10">
+//                 <h1 className="text-center text-[32px] font-bold mb-5">Order Page</h1>
+
+//                 <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10 ">
+//                     <div>
+//                         <label className="font-semibold block mb-1">Meal Name</label>
+//                         <input
+//                             type="text"
+//                             value={mealName}
+//                             readOnly
+//                             className="border w-full px-3 py-2 rounded-md mb-4 bg-base-300"
+//                         />
+//                         <div className="grid grid-cols-2 gap-4">
+//                             <div>
+//                                 <label className="font-semibold block mb-1">Price</label>
+//                                 <input
+//                                     type="text"
+//                                     value={`$${price}`}
+//                                     readOnly
+//                                     className="border w-full px-3 py-2 rounded-md bg-base-300"
+//                                 />
+//                             </div>
+
+//                             <div>
+//                                 <label className="font-semibold block mb-1">Chef ID</label>
+//                                 <input
+//                                     type="text"
+//                                     value={chefId}
+//                                     readOnly
+//                                     className="border w-full px-3 py-2 rounded-md bg-base-300"
+//                                 />
+//                             </div>
+//                         </div>
+//                         <label className="font-semibold block mt-4 mb-1">User Email</label>
+//                         <input
+//                             type="email"
+//                             value={userEmail}
+//                             readOnly
+//                             className="border w-full px-3 py-2 rounded-md mb-4 bg-base-300"
+//                         />
+//                         <label className="font-semibold block mb-1">User Address</label>
+//                         <input
+//                             type="text"
+//                             placeholder="Enter delivery address"
+//                             className="border w-full px-3 py-2 rounded-md mb-4"
+//                         />
+//                         <label className="font-semibold block mb-1">Quantity</label>
+//                         <input
+//                             type="number"
+//                             min="1"
+//                             className="border w-full px-4 py-2 rounded-md mb-4"
+//                             value={quantity}
+//                             onChange={(e) => setQuantity(e.target.value)}
+//                         />
+//                         <button className="w-full button2 text-content py-3 rounded-md mt-3">
+//                             Confirm Order
+//                         </button>
+//                     </div>
+//                     <div className="bg-base-300 p-6 rounded-xl border">
+//                         <h2 className="text-2xl font-semibold mb-6">Order Summary</h2>
+
+//                         <div className="space-y-3 text-lg">
+//                             <div className="flex justify-between">
+//                                 <span className="font-medium">Meal</span>
+//                                 <span>{mealName}</span>
+//                             </div>
+
+//                             <div className="flex justify-between">
+//                                 <span className="font-medium">Price</span>
+//                                 <span>${price}</span>
+//                             </div>
+
+//                             <div className="flex justify-between">
+//                                 <span className="font-medium">Quantity</span>
+//                                 <span>{quantity}</span>
+//                             </div>
+
+//                             <hr className="my-3" />
+
+//                             <div className="flex justify-between font-bold text-xl">
+//                                 <span>Total</span>
+//                                 <span>${price * quantity}</span>
+//                             </div>
+//                         </div>
+//                     </div>
+
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// };
+
+// export default OrderPage;
+
+
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 
 const OrderPage = () => {
+    const navigate = useNavigate();
+    const { state } = useLocation();
+    const meal = state?.meal;
+
+    if (!meal) {
+        return (
+            <div className="text-center mt-20">
+                <h2 className="text-2xl font-bold text-red-500">
+                    No meal selected!
+                </h2>
+                <button
+                    onClick={() => navigate(-1)}
+                    className="mt-4 px-5 py-2 bg-[#FF6700] text-white rounded-md"
+                >
+                    Go Back
+                </button>
+            </div>
+        );
+    }
+
     const [quantity, setQuantity] = useState(1);
 
-    // Auto-filled Dummy Data
-    const mealName = "Chicken Biryani";
-    const price = 500;
-    const chefId = "C001";
-    const userEmail = "user@example.com";
-
     return (
-        <div className="max-w-5xl mx-auto py-15 ">
+        <div className="max-w-5xl mx-auto py-15">
             <div className="bg-base-100 shadow-md rounded-xl border border-gray-400 py-10">
-                <h1 className="text-center text-[32px] font-bold mb-5">Order Page</h1>
+                <h1 className="text-center text-[32px] font-bold mb-5">
+                    Order Page
+                </h1>
 
-                <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10 ">
+                <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {/* Left Form */}
                     <div>
                         <label className="font-semibold block mb-1">Meal Name</label>
                         <input
                             type="text"
-                            value={mealName}
+                            value={meal.foodName}
                             readOnly
                             className="border w-full px-3 py-2 rounded-md mb-4 bg-base-300"
                         />
+
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="font-semibold block mb-1">Price</label>
                                 <input
                                     type="text"
-                                    value={`$${price}`}
+                                    value={`Tk. ${meal.price}`}
                                     readOnly
                                     className="border w-full px-3 py-2 rounded-md bg-base-300"
                                 />
@@ -263,49 +390,55 @@ const OrderPage = () => {
                                 <label className="font-semibold block mb-1">Chef ID</label>
                                 <input
                                     type="text"
-                                    value={chefId}
+                                    value={meal.chefId}
                                     readOnly
                                     className="border w-full px-3 py-2 rounded-md bg-base-300"
                                 />
                             </div>
                         </div>
-                        <label className="font-semibold block mt-4 mb-1">User Email</label>
+
+                        <label className="font-semibold block mt-4 mb-1">Chef Email</label>
                         <input
                             type="email"
-                            value={userEmail}
+                            value={meal.chefEmail}
                             readOnly
                             className="border w-full px-3 py-2 rounded-md mb-4 bg-base-300"
                         />
-                        <label className="font-semibold block mb-1">User Address</label>
+
+                        <label className="font-semibold block mb-1">Delivery Address</label>
                         <input
                             type="text"
                             placeholder="Enter delivery address"
                             className="border w-full px-3 py-2 rounded-md mb-4"
                         />
+
                         <label className="font-semibold block mb-1">Quantity</label>
                         <input
                             type="number"
                             min="1"
-                            className="border w-full px-4 py-2 rounded-md mb-4"
                             value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={(e) => setQuantity(Number(e.target.value))}
+                            className="border w-full px-4 py-2 rounded-md mb-4"
                         />
-                        <button className="w-full button2 text-content py-3 rounded-md mt-3">
+
+                        <button className="w-full bg-[#FF6700] hover:bg-[#f06000] text-white py-3 rounded-md mt-3 font-semibold">
                             Confirm Order
                         </button>
                     </div>
+
+                    {/* Right Summary */}
                     <div className="bg-base-300 p-6 rounded-xl border">
                         <h2 className="text-2xl font-semibold mb-6">Order Summary</h2>
 
                         <div className="space-y-3 text-lg">
                             <div className="flex justify-between">
                                 <span className="font-medium">Meal</span>
-                                <span>{mealName}</span>
+                                <span>{meal.foodName}</span>
                             </div>
 
                             <div className="flex justify-between">
                                 <span className="font-medium">Price</span>
-                                <span>${price}</span>
+                                <span>Tk. {meal.price}</span>
                             </div>
 
                             <div className="flex justify-between">
@@ -317,11 +450,10 @@ const OrderPage = () => {
 
                             <div className="flex justify-between font-bold text-xl">
                                 <span>Total</span>
-                                <span>${price * quantity}</span>
+                                <span>Tk. {meal.price * quantity}</span>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

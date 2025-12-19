@@ -8,10 +8,6 @@ const MealDetails = () => {
     const [favoriteBtn, setFavoriteBtn] = useState(false)
     const meals = useLoaderData()
     console.log(meals)
-
-    // const handleFavorite = () => {
-    //     setFavoriteBtn(!favoriteBtn)
-    // }
     return (
         <div className="max-w-5xl mx-auto my-10 p-5">
             <div className="grid md:grid-cols-2 gap-6">
@@ -60,7 +56,7 @@ const MealDetails = () => {
                     <div className="space-y-2">
                         <p className="text-xl font-bold">Tk. {meals.price}</p>
                     </div>
-                    <Link to={'/order-page'} className="btn w-full bg-[#FF6700] hover:bg-[#f06000] hover:cursor-pointer text-white rounded-2xl font-semibold mt-4">
+                    <Link to={'/order-page'} state={{meal: meals}} className="btn w-full bg-[#FF6700] hover:bg-[#f06000] hover:cursor-pointer text-white rounded-2xl font-semibold mt-4">
                         Order Now
                     </Link>
                 </div>
