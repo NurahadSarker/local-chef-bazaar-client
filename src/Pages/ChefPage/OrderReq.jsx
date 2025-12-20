@@ -1,32 +1,37 @@
-
-
 import React, { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const OrderReq = () => {
-  const { user } = useAuth();
+  const { dbUser } = useAuth(); // 🔥 MongoDB user (chef info এখানে থাকে)
   const axiosSecure = useAxiosSecure();
-  const [orders, setOrders] = useState([]);
 
-  /* ===== FETCH USER ORDERS ===== */
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  /* ===== FETCH CHEF ORDERS ===== */
   useEffect(() => {
-    axiosSecure
-      .get(`/orders`)
-      .then(res => {
-        console.log("Fetched orders:", res.data);
-        setOrders(res.data);
-      })
-      .catch(err => console.error(err));
-  }, [user, axiosSecure]);
+  if (!dbUser?.chefId) return;
+
+  axiosSecure
+    .get(`/orders/chef/${dbUser.chefId}`)
+    .then(res => {
+      setOrders(res.data);
+      setLoading(false);
+    });
+}, [dbUser]);
+
 
   /* ===== UPDATE ORDER STATUS ===== */
   const updateStatus = async (id, status) => {
     try {
       const res = await axiosSecure.patch(`/orders/status/${id}`, { status });
+
       if (res.data.modifiedCount > 0) {
-        setOrders(
-          orders.map(order =>
+        // UI instant update
+        setOrders((prev) =>
+          prev.map((order) =>
             order._id === id ? { ...order, orderStatus: status } : order
           )
         );
@@ -35,6 +40,10 @@ const OrderReq = () => {
       console.error("Failed to update status:", error);
     }
   };
+
+  if (loading) {
+    return <p className="text-center mt-10">Loading order requests...</p>;
+  }
 
   return (
     <div className="max-w-6xl mx-auto my-10 p-5 bg-base-100 rounded-2xl shadow-md">
@@ -58,7 +67,7 @@ const OrderReq = () => {
           {/* Table Body */}
           <tbody>
             {orders.length > 0 ? (
-              orders.map(order => (
+              orders.map((order) => (
                 <tr key={order._id}>
                   <td>{order.mealName}</td>
                   <td>{order.userEmail}</td>
@@ -123,6 +132,7 @@ const OrderReq = () => {
 };
 
 export default OrderReq;
+
 
 // import React, { useEffect, useState } from "react";
 // import useAxiosSecure from "../../Hooks/useAxiosSecure";
