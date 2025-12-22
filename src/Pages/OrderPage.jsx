@@ -98,7 +98,7 @@
 //         };
 
 //         try {
-//             const response = await axios.post("http://localhost:5000/orders", orderData);
+//             const response = await axios.post("https://local-chef-bazaar-phi.vercel.app/orders", orderData);
 //             if (response.data.insertedId) {
 //                 alert("Order placed successfully!");
 //             }
