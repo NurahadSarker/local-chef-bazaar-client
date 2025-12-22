@@ -28,32 +28,6 @@ const MealDetails = () => {
             .catch(err => console.error(err));
     }, [mealsId, axiosSecure]);
 
-
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     const newReview = {
-    //         mealsId: mealsId.toString(),
-    //         userEmail: user.email,
-    //         userName: user?.displayName || "Anonymous",
-    //         userPhoto: user?.photoURL || "https://i.pravatar.cc/70",
-    //         rating,
-    //         review: reviewText,
-    //         foodName: meals.foodName,
-    //     };
-
-
-    //     const res = await axiosSecure.post("/reviews", newReview);
-
-    //     if (res.data.insertedId) {
-    //         const reviewWithId = { ...newReview, _id: res.data.insertedId };
-    //         setReviews([...reviews, reviewWithId]); // UI তে নতুন review add
-    //         setRating(0);
-    //         setReviewText("");
-    //     }
-    // };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -78,6 +52,35 @@ const MealDetails = () => {
         }
     };
 
+    useEffect(() => {
+        if (!user?.email || !mealsId) return;
+
+        axiosSecure
+            .get(`/favorites/check?userEmail=${user.email}&mealId=${mealsId}`)
+            .then(res => {
+                setFavoriteBtn(res.data.isFavorite);
+            });
+    }, [user, mealsId, axiosSecure]);
+
+    const handleFavorite = async () => {
+        const favoriteData = {
+            userEmail: user.email,
+            mealId: mealsId,
+            mealName: meals.foodName,
+            chefId: meals.chefId,
+            chefName: meals.chefName,
+            price: meals.price,
+        };
+
+        const res = await axiosSecure.post("/favorites", favoriteData);
+
+        if (res.data.exists) {
+            alert("Already added to favorites");
+        } else if (res.data.insertedId) {
+            alert("Added to favorites ❤️");
+            setFavoriteBtn(true);
+        }
+    };
 
     return (
         <div className="max-w-5xl mx-auto my-10 p-5">
@@ -92,7 +95,7 @@ const MealDetails = () => {
                 <div className="space-y-2 border-l-3 border-gray-400 pl-4">
                     <div className="flex items-center">
                         <h1 className="text-3xl font-bold">{meals.foodName}</h1>
-                        <button onClick={() => setFavoriteBtn(!favoriteBtn)} className="flex items-center justify-center p-3 hover:cursor-pointer">
+                        <button onClick={handleFavorite} className="flex items-center justify-center p-3 hover:cursor-pointer">
                             {
                                 favoriteBtn ? <MdFavorite className="text-red-500" size={30} /> : <MdFavoriteBorder size={30} />
                             }
