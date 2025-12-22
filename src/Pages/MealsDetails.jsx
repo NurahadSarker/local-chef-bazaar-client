@@ -111,12 +111,18 @@ const MealDetails = () => {
                         </span>
                     </div>
                     <div className="flex items-center gap-1 text-yellow-500">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar className="text-gray-300" />
-                        <span className="text-sm ml-2 text-gray-500">(29 reviews)</span>
+                        {
+                            reviews.length > 0 && (
+                                <>
+                                    <FaStar />
+                                    <FaStar />
+                                    <FaStar />
+                                    <FaStar />
+                                    <FaStar className="text-gray-300" />
+                                </>
+                            )
+                        }
+                        <span className="text-sm ml-2 text-gray-500">({reviews.length} reviews)</span>
                     </div>
                     <div className="space-y-2">
                         <div>

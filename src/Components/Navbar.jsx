@@ -83,7 +83,7 @@ const Navbar = () => {
                     </label>
 
                     <div>
-                        <img className='w-10 rounded-full mr-2' src={user?.photoURL || avatar} alt="Image" />
+                        <img className='w-10 h-10 rounded-full mr-2' src={user?.photoURL || avatar} alt="Image" />
                     </div>
 
                     {
