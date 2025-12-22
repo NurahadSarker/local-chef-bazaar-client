@@ -334,14 +334,16 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import useAuth from "../Hooks/useAuth";
 
 const OrderPage = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const axiosSecure = useAxiosSecure();
+    const { user } = useAuth()
 
     const meal = state?.meal;
-    const user = { email: "user@example.com" }; // later authContext থেকে আসবে
+
 
     if (!meal) {
         return (
@@ -373,10 +375,12 @@ const OrderPage = () => {
 
             chefId: meal.chefId,
             chefEmail: meal.chefEmail,
+            chefName: meal.chefName,
 
             userEmail: user.email,
             deliveryAddress: address,
         };
+        console.log(orderData)
 
         try {
             const res = await axiosSecure.post("/orders", orderData);
@@ -430,6 +434,13 @@ const OrderPage = () => {
                                 />
                             </div>
                         </div>
+                        <label className="font-semibold block mb-1">Chef Name</label>
+                        <input
+                            type="text"
+                            value={meal.chefName}
+                            readOnly
+                            className="border w-full px-3 py-2 rounded-md bg-base-300"
+                        />
 
                         <label className="font-semibold block mt-4 mb-1">Chef Email</label>
                         <input

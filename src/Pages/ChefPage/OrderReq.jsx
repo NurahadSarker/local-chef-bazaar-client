@@ -1,38 +1,33 @@
 import React, { useEffect, useState } from "react";
-import useAuth from "../../Hooks/useAuth";
+// import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+// import useAuth from "../../Hooks/useAuth";
 
 const OrderReq = () => {
-  const { dbUser } = useAuth(); // 🔥 MongoDB user (chef info এখানে থাকে)
+  // const { dbUser } = useAuth();
   const axiosSecure = useAxiosSecure();
 
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-
-  /* ===== FETCH CHEF ORDERS ===== */
   useEffect(() => {
-  if (!dbUser?.chefId) return;
-
   axiosSecure
-    .get(`/orders/chef/${dbUser.chefId}`)
+    .get(`/orders`)
     .then(res => {
+      console.log("ORDERS:", res.data);
       setOrders(res.data);
-      setLoading(false);
     });
-}, [dbUser]);
+}, []);
 
-
-  /* ===== UPDATE ORDER STATUS ===== */
   const updateStatus = async (id, status) => {
     try {
       const res = await axiosSecure.patch(`/orders/status/${id}`, { status });
 
       if (res.data.modifiedCount > 0) {
-        // UI instant update
-        setOrders((prev) =>
-          prev.map((order) =>
-            order._id === id ? { ...order, orderStatus: status } : order
+        setOrders(prev =>
+          prev.map(order =>
+            order._id === id
+              ? { ...order, orderStatus: status }
+              : order
           )
         );
       }
@@ -41,60 +36,59 @@ const OrderReq = () => {
     }
   };
 
-  if (loading) {
-    return <p className="text-center mt-10">Loading order requests...</p>;
-  }
-
   return (
     <div className="max-w-6xl mx-auto my-10 p-5 bg-base-100 rounded-2xl shadow-md">
       <h2 className="text-[32px] font-bold mb-6">Order Requests</h2>
 
       <div className="overflow-x-auto bg-base-200 rounded-xl">
         <table className="table w-full">
-          {/* Table Head */}
-          <thead className="bg-base-300 text-gray-700">
+          <thead className="bg-base-300">
             <tr>
               <th>Meal</th>
               <th>Customer</th>
               <th>Qty</th>
               <th>Price</th>
-              <th>Delivery</th>
-              <th>Status</th>
+              <th>Order Status</th>
+              <th>Payment Status</th>
               <th className="text-center">Actions</th>
             </tr>
           </thead>
 
-          {/* Table Body */}
           <tbody>
             {orders.length > 0 ? (
-              orders.map((order) => (
+              orders.map(order => (
                 <tr key={order._id}>
                   <td>{order.mealName}</td>
                   <td>{order.userEmail}</td>
                   <td>{order.quantity}</td>
                   <td>Tk. {order.totalPrice}</td>
-                  <td>{order.deliveryAddress || "—"}</td>
 
-                  {/* STATUS */}
                   <td>
-                    <span
-                      className={`px-3 py-1 text-sm rounded-full
-                        ${order.orderStatus === "pending" && "bg-yellow-100 text-yellow-700"}
-                        ${order.orderStatus === "accepted" && "bg-blue-100 text-blue-700"}
-                        ${order.orderStatus === "delivered" && "bg-green-100 text-green-700"}
-                        ${order.orderStatus === "cancelled" && "bg-red-100 text-red-700"}
-                      `}
-                    >
+                    <span className={`px-3 py-1 rounded-full text-sm
+                      ${order.orderStatus === "pending" && "bg-yellow-100 text-yellow-700"}
+                      ${order.orderStatus === "accepted" && "bg-blue-100 text-blue-700"}
+                      ${order.orderStatus === "delivered" && "bg-green-100 text-green-700"}
+                      ${order.orderStatus === "cancelled" && "bg-red-100 text-red-700"}
+                    `}>
                       {order.orderStatus}
                     </span>
                   </td>
 
-                  {/* ACTIONS */}
+                  <td>
+                    <span className={`px-3 py-1 rounded-full text-sm
+                      ${order.paymentStatus === "pending" && "bg-yellow-100 text-yellow-700"}
+                      ${order.paymentStatus === "paid" && "bg-green-100 text-green-700"}
+                      ${order.paymentStatus === "cancelled" && "bg-red-100 text-red-700"}
+                    `}>
+                      {order.paymentStatus}
+                    </span>
+                  </td>
+
                   <td className="flex gap-2 justify-center">
                     <button
                       disabled={order.orderStatus !== "pending"}
                       onClick={() => updateStatus(order._id, "cancelled")}
-                      className="btn btn-sm bg-red-500 text-white disabled:opacity-40"
+                      className="btn btn-sm bg-red-500 text-white"
                     >
                       Cancel
                     </button>
@@ -102,15 +96,15 @@ const OrderReq = () => {
                     <button
                       disabled={order.orderStatus !== "pending"}
                       onClick={() => updateStatus(order._id, "accepted")}
-                      className="btn btn-sm bg-green-600 text-white disabled:opacity-40"
+                      className="btn btn-sm bg-green-600 text-white"
                     >
                       Accept
                     </button>
 
                     <button
-                      disabled={order.orderStatus !== "accepted"}
+                      disabled={order.orderStatus !== "accepted" || order.paymentStatus !== "paid"}
                       onClick={() => updateStatus(order._id, "delivered")}
-                      className="btn btn-sm bg-blue-600 text-white disabled:opacity-40"
+                      className="btn btn-sm bg-blue-600 text-white"
                     >
                       Deliver
                     </button>
@@ -119,7 +113,7 @@ const OrderReq = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="text-center py-10 text-gray-500">
+                <td colSpan="6" className="text-center py-10 text-gray-500">
                   No orders found
                 </td>
               </tr>
@@ -132,6 +126,7 @@ const OrderReq = () => {
 };
 
 export default OrderReq;
+
 
 
 // import React, { useEffect, useState } from "react";
