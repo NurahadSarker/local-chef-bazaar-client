@@ -3,12 +3,6 @@ import Image01 from '../../assets/chickenbiriani.jpg'
 import { Link } from 'react-router';
 
 const Card = ({ meal }) => {
-    // const location = useLocation()
-    // const navigate = useNavigate()
-
-    // const handleDetailsBtn = () => {
-    //     navigate(`/meals-details/${meal._id}`)
-    // }
     return (
         <div>
             <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>

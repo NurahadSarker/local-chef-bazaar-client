@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
-import Img from "../assets/chickenbiriani.jpg";
+// import Img from "../assets/chickenbiriani.jpg";
 import { Link, NavLink, Outlet, useLoaderData } from "react-router";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import useAuth from "../Hooks/useAuth";
+import { formatDistanceToNow } from "date-fns";
+
 
 const MealDetails = () => {
     const [favoriteBtn, setFavoriteBtn] = useState(false)
@@ -15,11 +17,8 @@ const MealDetails = () => {
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     const [reviewText, setReviewText] = useState("");
-    console.log(user)
-    const mealsId = meals._id
-    console.log(mealsId)
 
-    /* ===== FETCH REVIEWS ===== */
+    const mealsId = meals._id
     useEffect(() => {
         if (!mealsId) return;
 
@@ -31,29 +30,54 @@ const MealDetails = () => {
 
 
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     const newReview = {
+    //         mealsId: mealsId.toString(),
+    //         userEmail: user.email,
+    //         userName: user?.displayName || "Anonymous",
+    //         userPhoto: user?.photoURL || "https://i.pravatar.cc/70",
+    //         rating,
+    //         review: reviewText,
+    //         foodName: meals.foodName,
+    //     };
+
+
+    //     const res = await axiosSecure.post("/reviews", newReview);
+
+    //     if (res.data.insertedId) {
+    //         const reviewWithId = { ...newReview, _id: res.data.insertedId };
+    //         setReviews([...reviews, reviewWithId]); // UI তে নতুন review add
+    //         setRating(0);
+    //         setReviewText("");
+    //     }
+    // };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newReview = {
-            mealsId: mealsId.toString(), // <-- ObjectId না, string
+            mealsId: mealsId.toString(),
+            userEmail: user.email,
             userName: user?.displayName || "Anonymous",
             userPhoto: user?.photoURL || "https://i.pravatar.cc/70",
             rating,
             review: reviewText,
+            foodName: meals.foodName,
+            createdAt: new Date()
         };
 
-
-        // POST request
         const res = await axiosSecure.post("/reviews", newReview);
 
         if (res.data.insertedId) {
-            // Server থেকে নতুন review fetch করার পরিবর্তে, আমরা newReview তেই _id বসাচ্ছি
             const reviewWithId = { ...newReview, _id: res.data.insertedId };
-            setReviews([...reviews, reviewWithId]); // UI তে নতুন review add
+            setReviews(prevReviews => [reviewWithId, ...prevReviews]);
             setRating(0);
             setReviewText("");
         }
     };
+
 
     return (
         <div className="max-w-5xl mx-auto my-10 p-5">
@@ -118,7 +142,7 @@ const MealDetails = () => {
                 {/* ===== EXISTING REVIEWS ===== */}
                 <div className="space-y-6 max-h-80 overflow-y-auto pr-3">
                     {reviews.map((r, index) => (
-                        <div key={index} className="flex gap-4">
+                        <div key={index} className="flex items-center gap-4">
                             <img
                                 src={r.userPhoto}
                                 className="w-14 h-14 rounded-full"
@@ -137,6 +161,7 @@ const MealDetails = () => {
                                 </div>
 
                                 <p className="text-gray-600">{r.review}</p>
+                                <p className="text-gray-600">{formatDistanceToNow(new Date(r.createdAt), { addSuffix: true })}</p>
                             </div>
                         </div>
                     ))}
