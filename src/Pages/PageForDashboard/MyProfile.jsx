@@ -46,7 +46,7 @@ const MyProfile = () => {
             <h1 className="text-[32px] font-bold mb-5">My Profile</h1>
             <div className="flex items-center gap-5 border-b-2 border-base-300 pb-7">
                 <div className="w-30 bg-base-300 rounded-full h-30 shadow-md flex items-center justify-center border border-[#FF6700]">
-                    <img className="w-full rounded-full" src={user?.photoURL || avatar} alt="Image" />
+                    <img className="w-full h-full rounded-full" src={user?.photoURL || avatar} alt="Image" />
                 </div>
                 <div>
                     <h1 className="mb-2 text-[24px] font-bold">{user.displayName}</h1>
