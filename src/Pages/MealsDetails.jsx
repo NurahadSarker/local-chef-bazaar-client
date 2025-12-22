@@ -17,16 +17,17 @@ const MealDetails = () => {
     const [reviewText, setReviewText] = useState("");
     console.log(user)
     const mealsId = meals._id
+    console.log(mealsId)
 
     /* ===== FETCH REVIEWS ===== */
     useEffect(() => {
-    if (!mealsId) return;
+        if (!mealsId) return;
 
-    axiosSecure
-        .get(`/reviews/${mealsId}`)
-        .then(res => setReviews(res.data))
-        .catch(err => console.error(err));
-}, [mealsId, axiosSecure]);
+        axiosSecure
+            .get(`/reviews/${mealsId}`)
+            .then(res => setReviews(res.data))
+            .catch(err => console.error(err));
+    }, [mealsId, axiosSecure]);
 
 
 
@@ -34,12 +35,12 @@ const MealDetails = () => {
         e.preventDefault();
 
         const newReview = {
-    mealsId: mealsId.toString(), // <-- ObjectId না, string
-    userName: user?.displayName || "Anonymous",
-    userPhoto: user?.photoURL || "https://i.pravatar.cc/70",
-    rating,
-    review: reviewText,
-};
+            mealsId: mealsId.toString(), // <-- ObjectId না, string
+            userName: user?.displayName || "Anonymous",
+            userPhoto: user?.photoURL || "https://i.pravatar.cc/70",
+            rating,
+            review: reviewText,
+        };
 
 
         // POST request
