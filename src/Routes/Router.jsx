@@ -25,6 +25,7 @@ import OrderReq from "../Pages/ChefPage/OrderReq";
 import ManageUsers from "../Pages/AdimnPage/ManageUsers";
 import ManageReq from "../Pages/AdimnPage/ManageReq";
 import PlatformStatistics from "../Pages/AdimnPage/PlatformStatistics";
+import Payment from "../Pages/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -103,6 +104,10 @@ export const router = createBrowserRouter([
             {
                 path: 'my-orders',
                 element: <MyOrders></MyOrders>
+            },
+            {
+                path: 'payment/:id',
+                element: <Payment></Payment>
             },
             {
                 path: 'my-reviews',

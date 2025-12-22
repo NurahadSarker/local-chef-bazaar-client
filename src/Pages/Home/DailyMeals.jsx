@@ -31,7 +31,7 @@ const DailyMeals = () => {
                 <div className='grid grid-cols-3 gap-5'>
 
                     {
-                        meals.map((meal) => (
+                        meals.slice(0, 6).map((meal) => (
                             <CardForDailyMeals key={meal._id} meal={meal}></CardForDailyMeals>
                         ))
                     }

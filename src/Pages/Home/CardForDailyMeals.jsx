@@ -4,12 +4,6 @@ import Image01 from '../../assets/chickenbiriani.jpg'
 
 
 const CardForDailyMeals = ({ meal }) => {
-    // const location = useLocation()
-    // const navigate = useNavigate()
-
-    // const handleDetailsBtn = () => {
-    //     navigate(`/meals-details/${meal._id}`)
-    // }
     return (
         <div>
             <div className='w-full bg-base-100 shadow-md p-3 rounded-md'>
